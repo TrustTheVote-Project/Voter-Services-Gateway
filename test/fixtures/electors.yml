@@ -1,0 +1,63 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  elector_id: MyString
+  last_name: MyString
+  first_name: MyString
+  middle_name: MyString
+  gender: MyString
+  dob_year: 1
+  dob_month: 1
+  dob_day: 1
+  address_number: 1
+  address_number_suffix: MyString
+  unit_number: MyString
+  street_name: MyString
+  street_type: MyString
+  street_direction: MyString
+  place: MyString
+  province: MyString
+  postal_code: MyString
+  rural_address_line: MyString
+  mailing_address_line_1: MyString
+  mailing_address_line_2: MyString
+  mailing_place: MyString
+  mailing_province: MyString
+  mailing_postal_code: MyString
+  mailing_country_code: MyString
+  ed_id: MyString
+  english_name: MyString
+  poll_name: MyString
+  create_date: 2016-06-26 00:02:53
+  modify_date: 2016-06-26 00:02:53
+
+two:
+  elector_id: MyString
+  last_name: MyString
+  first_name: MyString
+  middle_name: MyString
+  gender: MyString
+  dob_year: 1
+  dob_month: 1
+  dob_day: 1
+  address_number: 1
+  address_number_suffix: MyString
+  unit_number: MyString
+  street_name: MyString
+  street_type: MyString
+  street_direction: MyString
+  place: MyString
+  province: MyString
+  postal_code: MyString
+  rural_address_line: MyString
+  mailing_address_line_1: MyString
+  mailing_address_line_2: MyString
+  mailing_place: MyString
+  mailing_province: MyString
+  mailing_postal_code: MyString
+  mailing_country_code: MyString
+  ed_id: MyString
+  english_name: MyString
+  poll_name: MyString
+  create_date: 2016-06-26 00:02:53
+  modify_date: 2016-06-26 00:02:53
