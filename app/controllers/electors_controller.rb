@@ -46,6 +46,16 @@ class ElectorsController < ApplicationController
 
     head :no_content
   end
+  
+  
+
+  def lookup
+  
+  	@requestData = params[:voter_records_request][:voter_registration][:name]
+  	
+	@elector = Elector.find_by(first_name: @requestData[:first_name], last_name: @requestData[:last_name])
+	render json: @elector
+  end
 
   private
 

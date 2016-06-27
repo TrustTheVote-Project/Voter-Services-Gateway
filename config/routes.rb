@@ -1,5 +1,11 @@
 Vsgateway::Application.routes.draw do
-  resources :electors, except: [:new, :edit]
+	# this can be removed but may be useful for debugging
+  	if Rails.env.development?
+     	resources :electors, except: [:new, :edit]
+  	end
+  
+  	match 'elector-lookup', to: 'electors#lookup', via: [:post]
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
