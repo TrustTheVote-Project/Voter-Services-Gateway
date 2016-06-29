@@ -1,4 +1,5 @@
 Vsgateway::Application.routes.draw do
+  resources :voters, except: [:new, :edit]
 	# this can be removed but may be useful for debugging
   	if Rails.env.development?
      	resources :electors, except: [:new, :edit]
