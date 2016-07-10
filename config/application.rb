@@ -9,6 +9,7 @@ Bundler.require(:default, Rails.env)
 module Vsgateway
   class Application < Rails::Application
 	config.api_only = true
+	ActiveModelSerializers.config.adapter = :json
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

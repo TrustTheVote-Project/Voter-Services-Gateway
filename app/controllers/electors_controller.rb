@@ -51,10 +51,21 @@ class ElectorsController < ApplicationController
 
   def lookup
   
-  	@requestData = params[:voter_records_request][:voter_registration][:name]
+  	# case insensitive?
+  	# handle missinng params
+  	@nameRequestData = params[:voter_records_request][:voter_registration][:name]
+  	@addressRequestData = params[:voter_records_request][:voter_registration][:registration_address][:numbered_thoroughfare_address]
+  	@dobRequestData = params[:voter_records_request][:voter_registration][:date_of_birth].split('-')
   	
-	@elector = Elector.find_by(first_name: @requestData[:first_name], last_name: @requestData[:last_name])
-	render json: @elector
+	@elector = Elector.find_by(first_name: @nameRequestData[:first_name], 
+								last_name: @nameRequestData[:last_name], 
+								address_number: @addressRequestData[:complete_address_number][:address_number], 
+								street_name: @addressRequestData[:complete_street_name][:street_name],
+								dob_year: @dobRequestData[0], 
+								dob_month: @dobRequestData[1],  
+								dob_day: @dobRequestData[2])
+	
+	render json: @elector, root: "voter_records_response"
   end
 
   private
