@@ -52,7 +52,8 @@ class ElectorsController < ApplicationController
   def lookup
   
   	# case insensitive?
-  	# handle missinng params
+  	# handle missing params
+  	# check for "type": "lookup"?
   	@nameRequestData = params[:voter_records_request][:voter_registration][:name]
   	@addressRequestData = params[:voter_records_request][:voter_registration][:registration_address][:numbered_thoroughfare_address]
   	@dobRequestData = params[:voter_records_request][:voter_registration][:date_of_birth].split('-')
@@ -64,8 +65,20 @@ class ElectorsController < ApplicationController
 								dob_year: @dobRequestData[0], 
 								dob_month: @dobRequestData[1],  
 								dob_day: @dobRequestData[2])
+								
+	if @elector
+		render json: @elector, root: "voter_records_response"
+	else
+		render json: {
+			voter_records_response: 
+				{registration_rejection: 	
+					{error: "no-match"}
+				}
+			}
+	end
 	
-	render json: @elector, root: "voter_records_response"
+	
+	
   end
 
   private
