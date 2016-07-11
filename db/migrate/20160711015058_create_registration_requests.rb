@@ -1,6 +1,6 @@
-class CreateVoters < ActiveRecord::Migration
+class CreateRegistrationRequests < ActiveRecord::Migration
   def change
-    create_table :voters do |t|
+    create_table :registration_requests do |t|
       t.string :elector_id
       t.string :last_name
       t.string :first_name

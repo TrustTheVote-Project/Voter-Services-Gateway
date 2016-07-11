@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629051541) do
+ActiveRecord::Schema.define(version: 20160711015058) do
 
   create_table "electors", force: true do |t|
     t.string   "elector_id"
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 20160629051541) do
     t.datetime "updated_at"
   end
 
-  create_table "voters", force: true do |t|
+  create_table "registration_requests", force: true do |t|
     t.string   "elector_id"
     t.string   "last_name"
     t.string   "first_name"

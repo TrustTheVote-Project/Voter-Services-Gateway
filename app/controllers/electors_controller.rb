@@ -50,7 +50,6 @@ class ElectorsController < ApplicationController
   
 
   def lookup
-  
   	# case insensitive?
   	# handle missing params
   	# check for "type": "lookup"?
@@ -76,11 +75,8 @@ class ElectorsController < ApplicationController
 				}
 			}
 	end
-	
-	
-	
   end
-
+  	
   private
 
     def set_elector
