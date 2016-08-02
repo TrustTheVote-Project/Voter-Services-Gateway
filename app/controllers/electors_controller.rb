@@ -66,7 +66,84 @@ class ElectorsController < ApplicationController
 								dob_day: @dobRequestData[2])
 								
 	if @elector
-		render json: @elector, root: "voter_records_response"
+		@response = Hash.new("voter_records_response")
+		
+		@response = { "registration_success" => {
+						"action"=>"registration-matched",
+						"voter_registration"=>{
+				  			"registration_address"=>{
+				    			"numbered_thoroughfare_address"=>{
+				      				"complete_address_number"=>{
+				          				"address_number"=>@elector[:address_number]
+				      				},
+				      				"complete_street_name"=>{
+				          				"street_name"=>@elector[:street_name],
+				          				"street_name_post_type"=>@elector[:street_type],
+				          				"street_name_post_directional"=>@elector[:street_direction]
+				      				},
+				      				"complete_sub_address"=>{
+				        				"sub_address_type"=>"FIX_ME", #what is this?
+				        				"sub_address"=>@elector[:unit_number]
+				      				},
+				      				"complete_place_names"=>[
+										{
+										  "place_name_type"=>"MunicipalJurisdiction",
+										  "place_name_value"=>@elector[:place]
+										},
+										{
+										  "place_name_type"=>"County",
+										  "place_name_value"=>"FIX_ME" #what is this
+										}
+								  	],
+								  	"state"=>@elector[:province],
+				      				"zip_code"=>@elector[:postal_code]
+				      			}
+				      		},
+				      		"registration_address_is_mailing_address"=>true,
+					  		"name"=>{
+								"first_name"=>@elector[:first_name],
+								"last_name"=>@elector[:last_name],
+								"middle_name"=>@elector[:middle_name],
+								"title_prefix"=>"NO_DATA", # NO_DATA
+								"title_suffix"=>"NO_DATA" # NO_DATA
+							},
+							"gender"=>@elector[:gender],
+							"voter_ids"=>[
+								{
+								  "type"=>"drivers_license",
+								  "attest_no_such_id"=>false
+								},
+								{
+								  "type"=>"other",
+								  "othertype"=>"elector_id",
+								  "string_value"=>@elector[:elector_id],
+								  "attest_no_such_id"=>false
+								}
+				  			],
+				  			"voter_classifications"=>[
+							  	"citizen",
+							  	"resident-of-ontario"
+							 ],
+							 "contact_methods"=>[
+							 	{
+								  "type"=>"phone",
+								  "value"=>"NO_DATA", #NO_DATA
+								  "capabilities"=>[
+									"voice",
+									"fax",
+									"sms"
+								  ]
+								},
+								{
+								  "type"=>"email",
+								  "value"=>"NO_DATA" #NO_DATA
+								}
+							  ]
+				      	}
+				     }
+				 }
+
+		render json: @response
 	else
 		render json: {
 			voter_records_response: 
