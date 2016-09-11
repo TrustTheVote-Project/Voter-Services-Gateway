@@ -21,22 +21,64 @@ class RegistrationRequestsController < ApplicationController
     @registationData = params[:voter_records_request][:voter_registration]
   	@nameRequestData = @registationData[:name]
   	@addressRequestData = @registationData[:registration_address][:numbered_thoroughfare_address]
+  	@mailingAddressRequestData = @registationData[:mailing_address][:unstructured_thoroughfare_address]
   	@dobRequestData = @registationData[:date_of_birth].split('-')
   	
   	
     @registration_request = RegistrationRequest.new
+    
    	#Name
     @registration_request.last_name = @nameRequestData[:last_name]
     @registration_request.first_name = @nameRequestData[:first_name]
     @registration_request.middle_name = @nameRequestData[:middle_name]
+    
     #Gender
     @registration_request.gender = @registationData[:gender]
+    
     #DOB
     @registration_request.dob_year = @dobRequestData[0]
     @registration_request.dob_month = @dobRequestData[1]
     @registration_request.dob_day = @dobRequestData[2]
     
+    #Address
+    @addressRequestData = @registationData[:registration_address][:numbered_thoroughfare_address]
+    @registration_request.address_number = @addressRequestData[:complete_address_number][:address_number]
+    #TODO
+    #@registration_request.address_number_suffix =
+    @registration_request.unit_number = @addressRequestData[:complete_sub_address][:sub_address]
+    @registration_request.street_name = @addressRequestData[:complete_street_name][:street_name]
+    @registration_request.street_type = @addressRequestData[:complete_street_name][:street_name_post_type]
+    @registration_request.street_direction = @addressRequestData[:complete_street_name][:street_name_post_directional]
+    #TODO
+    #"complete_place_names": [
+    #          {
+    #            "place_name_type": "MunicipalJurisdiction",
+    #            "place_name_value": "Stittsville"
+    #          },
+    #          {
+    #            "place_name_type": "County",
+    #            "place_name_value": "Carleton"
+    #          }
+    #        ]
+    #@registration_request.place =
+    @registration_request.province = @addressRequestData[:state]
+    @registration_request.postal_code = @addressRequestData[:zip_code]
+    #TODO 
+    #@registration_request.rural_address_line = 
+    @registration_request.mailing_address_line_1 = @mailingAddressRequestData[:address_lines][0]
+    @registration_request.mailing_address_line_2 = @mailingAddressRequestData[:address_lines][1]
+    @registration_request.mailing_place = @mailingAddressRequestData[:complete_place_names][0][:place_name_value]
+    @registration_request.mailing_province = @mailingAddressRequestData[:state]
+    @registration_request.mailing_postal_code = @mailingAddressRequestData[:zip_code]
+    #TODO
+    #@registration_request.mailing_country_code =
     
+    #Request state
+    @registration_request.request_status = "new"
+    @registration_request.request_date = params[:voter_records_request][:generated_date]
+    #TODO
+    #@registration_request.request_uid = 
+    @registration_request.modify_date = Date.today
 
     if @registration_request.save
       render json: @registration_request, status: :created, location: @registration_request
