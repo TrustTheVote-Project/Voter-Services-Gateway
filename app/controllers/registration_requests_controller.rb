@@ -75,7 +75,7 @@ class RegistrationRequestsController < ApplicationController
     
     #Request state
     @registration_request.request_status = "new"
-    @registration_request.request_date = params[:voter_records_request][:generated_date]
+    @registration_request.request_date = Date.parse(params[:voter_records_request][:generated_date])
     #TODO
     #@registration_request.request_uid = 
     @registration_request.modify_date = Date.today
