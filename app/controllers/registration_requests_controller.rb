@@ -81,9 +81,19 @@ class RegistrationRequestsController < ApplicationController
     @registration_request.modify_date = Date.today
 
     if @registration_request.save
-      render json: @registration_request, status: :created, location: @registration_request
+      render json: {
+			voter_records_response: {
+				registration_acknowledgement:""
+				}	
+			}
     else
-      render json: @registration_request.errors, status: :unprocessable_entity
+      render json: {
+      		voter_records_response: {
+      			registration_rejection: {
+         			error:"other",
+					other_error:"description of error"}
+    			}
+    		}
     end
   end
 
