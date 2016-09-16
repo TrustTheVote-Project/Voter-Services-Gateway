@@ -68,7 +68,8 @@ class ElectorsController < ApplicationController
 	if @elector
 		@response = Hash.new("voter_records_response")
 		
-		@response = { "registration_success" => {
+		@response = { "voter_records_response" => {
+				"registration_success" => {
 						"action"=>"registration-matched",
 						"voter_registration"=>{
 				  			"registration_address"=>{
@@ -142,6 +143,7 @@ class ElectorsController < ApplicationController
 				      	}
 				     }
 				 }
+		}
 
 		render json: @response
 	else
