@@ -1,12 +1,12 @@
 Vsgateway::Application.routes.draw do
 	# this can be removed but may be useful for debugging
   	if Rails.env.development?
-  		resources :registration_requests, except: [:new, :edit]
      	resources :electors, except: [:new, :edit]
   	end
   
   	match 'elector-lookup', to: 'electors#lookup', via: [:post]
   	match 'create-elector-register-request', to: 'registration_requests#create', via: [:post]
+		resources :registration_requests, only: [:index]
 
 
   # The priority is based upon order of creation: first created -> highest priority.
